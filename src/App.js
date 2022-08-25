@@ -1,22 +1,22 @@
 import Expenses from "./components/expenses/Expenses";
 import NewExpense from "./components/newExpenses/NewExpense";
-import React, { useCallback, useEffect,useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useFetch from "./hooks/useFeth";
 
-const BASE_URL ="https://tasks-af66b-default-rtdb.firebaseio.com"
+const BASE_URL = "https://tasks-af66b-default-rtdb.firebaseio.com"
 
 function App() {
   const [expenses, setExpenses] = useState([]);
-  const {error, sendRequest: fetchExpenseHandler} = useFetch()
+  const { error, sendRequest: fetchExpenseHandler } = useFetch()
 
- 
-  
-  const transformExpense = useCallback((expenseObj) =>{
+
+
+  const transformExpense = useCallback((expenseObj) => {
     const expenseDate = [];
-  
+
     for (const key in expenseObj) {
       expenseDate.push({
         id: key,
@@ -30,15 +30,21 @@ function App() {
   }, [])
 
   //
-  useEffect(()=>{
+  useEffect(() => {
     fetchExpenseHandler({
       url: `${BASE_URL}/tasks.json`
-    },transformExpense)
-  },[fetchExpenseHandler, transformExpense])
-  
-const expenseAddHandler = (expenses) =>{
-  setExpenses((prevState)=>prevState.concat(expenses) )
-}
+    }, transformExpense)
+  }, [fetchExpenseHandler, transformExpense])
+
+  const expenseAddHandler = (expense) => {
+    const data = {
+      id: expense?.id,
+      title: expense.expenseDate.title,
+      amount: expense.expenseDate.amount,
+      date: expense.expenseDate.date,
+    }
+    setExpenses((prevState) => prevState.concat(data))
+  }
   const notify = () => {
     toast.promise(
       fetchExpenseHandler,
@@ -59,7 +65,7 @@ const expenseAddHandler = (expenses) =>{
   return (
     <div className="content">
       <ToastContainer />
-      <NewExpense onAddDataToArray={expenseAddHandler}/>
+      <NewExpense onAddDataToArray={expenseAddHandler} />
       <button className="btn" onClick={notify}>Show Expenses</button>
       {content}
     </div>

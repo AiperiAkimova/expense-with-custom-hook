@@ -30,20 +30,24 @@ function ExpenseForm(props) {
     const generatedId = data.name;
     const createdExpense = { id: generatedId, expenseDate };
 
-    if (data.ok) {
-      toast.success("Uspeshno dobavleno", {
-        position: "top-center",
-        theme: "dark",
-        autoClose: 1000,
-      });
-    }
+    toast.success("Uspeshno dobavleno", {
+      position: "top-center",
+      theme: "dark",
+      autoClose: 1000,
+    });
 
     props.onAddData(createdExpense);
   };
 
   //config
-  const submitHandler = async (event, expenseDate) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
+
+    const expenseDate = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
+    };
 
     sendExpenses(
       {
@@ -52,12 +56,8 @@ function ExpenseForm(props) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: {
-          title: enteredTitle,
-          amount: enteredAmount,
-          date: new Date(enteredDate),
-        },
-        
+        body: expenseDate,
+
       },
       createExpense.bind(null, expenseDate)
     );
