@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/expense-with-custom-hook/static/css/main.259826ea.css",
+    "main.js": "/expense-with-custom-hook/static/js/main.6c0b6ff5.js",
+    "index.html": "/expense-with-custom-hook/index.html",
+    "main.259826ea.css.map": "/expense-with-custom-hook/static/css/main.259826ea.css.map",
+    "main.6c0b6ff5.js.map": "/expense-with-custom-hook/static/js/main.6c0b6ff5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.259826ea.css",
+    "static/js/main.6c0b6ff5.js"
+  ]
+}
